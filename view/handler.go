@@ -71,9 +71,9 @@ func GachaPostHandler(c echo.Context) error{
 // 3. キャラクター関連API
 func CharacterGetHandler(c echo.Context) error{
 	/*
-		①tokenを受け取る(ハンドラー)
-		②ユーザーIDの取得, ユーザーの所持キャラクター取得(モデル)
-	    ③userCharacterID, characterID, name, rarity情報をレスポンス(ハンドラー)
+	①tokenを受け取る(ハンドラー)
+	②ユーザーIDの取得, ユーザーの所持キャラクター取得(モデル)
+	③userCharacterID, characterID, name, rarity情報をレスポンス(ハンドラー)
 	*/
 	token := c.Request().Header.Get("Token") //①
 	result := models.DBcontrollerCatalog(token)// ②
