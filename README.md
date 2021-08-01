@@ -7,11 +7,11 @@
 <img width="209" alt="スクリーンショット 0003-08-01 午後1 18 15" src="https://user-images.githubusercontent.com/66200485/127759060-9ac560cd-0026-4abd-894c-7b5297b1cb1a.png">
 
 # MVCモデル
-- M:model層  
+- M : model層  
 DBアクセスしたり、構造体を作成するところ  
-- V:view = handler層
+- V : view = handler層  
 tokenからユーザー情報を読み取ったり、paramからidを取得したりするなど、クライアントのリクエストとレスポンスを行うところ  
-- C:controller層
+- C : controller層  
 tokenを作ったり、確率に応じてキャラを引いたりするなどのビジネスロジックを組み立てるところ  
  
 # 機能一覧
