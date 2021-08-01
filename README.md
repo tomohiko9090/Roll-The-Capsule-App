@@ -1,4 +1,4 @@
-# CA Tech Dojo (かめガチャ作ってみる)
+# CA Tech Dojo (かめガチャを作る)
 
 ![IMG_0223](https://user-images.githubusercontent.com/66200485/127758779-ed5f97f5-f406-414d-b137-75d913fcff27.JPG)  
 ↑僕の家に住むかめさん
