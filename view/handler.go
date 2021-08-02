@@ -9,6 +9,9 @@ import (
 )
 
 // 1.1. ユーザー作成
+type PostToken struct {
+	Token  string  `json:"token"`
+}
 func UserPostHandler(c echo.Context)error{
 	/*
 	①POSTされたnameを受け取る(ハンドラー)
@@ -18,12 +21,16 @@ func UserPostHandler(c echo.Context)error{
 	⑤JSONでレスポンス(ハンドラー)
 	*/
 	name := c.FormValue("name") //①
-	token := controller.RandomString(10) //②
-	models.DBcontrollerPost(name, token) //③④
-	return c.JSON(http.StatusOK, "token:" + token) //⑤
+	token_before := controller.RandomString(10) //②
+	models.DBcontrollerPost(name, token_before) //③④
+	token := PostToken{token_before}
+	return c.JSON(http.StatusOK, token) //⑤
 }
 
 // 1.2. ユーザー取得
+type GetName struct {
+	Name  string  `json:"name"`
+}
 func UserGetHandler(c echo.Context) error {
 	/*
 	①tokenを受け取る(ハンドラー)
@@ -31,8 +38,9 @@ func UserGetHandler(c echo.Context) error {
 	③nameをレスポンス(ハンドラー)
 	*/
 	token := c.Request().Header.Get("Token") //①
-	name := models.DBcontrollerGet(token) //②
-	return c.JSON(http.StatusOK, "name:" + name) //③
+	name_before := models.DBcontrollerGet(token) //②
+	name := GetName{name_before}
+	return c.JSON(http.StatusOK, name) //③
 }
 
 // 1.3. ユーザー更新
@@ -65,7 +73,7 @@ func GachaPostHandler(c echo.Context) error{
 	ans_id := controller.Gacha(total, number) //③
 	models.DBcontrollerInsert(token, ans_id)  //④
 	results := models.DBcontrollerCharaGet(ans_id, token) //⑤
-	return c.JSON(http.StatusOK, "results:" + results) //⑥
+	return c.JSON(http.StatusOK, results) //⑥
 }
 
 // 3. キャラクター関連API
@@ -77,7 +85,7 @@ func CharacterGetHandler(c echo.Context) error{
 	*/
 	token := c.Request().Header.Get("Token") //①
 	result := models.DBcontrollerCatalog(token)// ②
-	return c.JSON(http.StatusOK, "characters:" + result) //③
+	return c.JSON(http.StatusOK, result) //③
 }
 
 

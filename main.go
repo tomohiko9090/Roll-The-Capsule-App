@@ -7,13 +7,11 @@ import (
 
 func main() {
 	e := echo.New()
+
 	//1. ユーザー関連API
-	// 1.1. ユーザ情報作成API
-	e.POST("/user/create", view.UserPostHandler)
-	// 1.2. ユーザ情報取得API
-	e.GET("/user/get", view.UserGetHandler)
-	// 1.3. ユーザー情報更新API
-	e.PUT("/user/update", view.UserPutHandler)
+	e.POST("/user/create", view.UserPostHandler)	// 1.1. ユーザー情報作成API
+	e.GET("/user/get", view.UserGetHandler)	    // 1.2. ユーザー情報取得API
+	e.PUT("/user/update", view.UserPutHandler)	    // 1.3. ユーザー情報更新API
 
 	//2. ガチャ実行API
 	e.POST("/gacha/draw", view.GachaPostHandler)
