@@ -5,7 +5,7 @@
 ↑僕の家に住むかめさん
 
 ## ディレクトリ構造
-<img width="209" alt="スクリーンショット 0003-08-01 午後1 18 15" src="https://user-images.githubusercontent.com/66200485/127759060-9ac560cd-0026-4abd-894c-7b5297b1cb1a.png">
+<img width="348" alt="スクリーンショット 0003-08-06 午前11 47 15" src="https://user-images.githubusercontent.com/66200485/128448965-d7221aab-bba7-4bb4-9451-61a886ca71d8.png">
 
 ## MVCモデル
 - M : model層  
