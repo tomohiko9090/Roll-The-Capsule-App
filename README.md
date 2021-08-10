@@ -63,30 +63,30 @@ tokenを作ったり、確率に応じてキャラを引いたりするなどの
 
 # Requirement
  
-"hoge"を動かすのに必要なライブラリなどを列挙する
- 
 **言語**：Golang 1.16.3  
 **フレームワーク**：echo v3.3.10  
-**開発期間**:4週間  
 **開発環境**：MacOS
 **DB**：MySQL  
- 
+**ライブラリ**
+"github.com/go-sql-driver/mysql"  
+"github.com/labstack/echo"  
+
 # Installation
 
 Requirementで列挙したライブラリなどのインストール方法を説明する
  
 ```bash
-pip install huga_package
+go get github.com/go-sqlt-driver/mysql
+go get github.com/labstack/echo
 ```
  
 # Usage
  
-DEMOの実行方法など、"hoge"の基本的な使い方を説明する
- 
-## アプリの使用方法
-1. このリポジトリをclone
-2. 以下を実行
-以下を実行
+1. このリポジトリをcloneする
+2. TurtleGachaAPI_MVCmodelのディレクトリに移動する
+3. go run main.goする
+4. Postmanなどのアプリを使って、HeaderやBodyにKeyとValueを入れてリクエストする
+
 ```bash
 git clone https://github.com/tomohiko9090/CA_Tech_Dojo.git
 cd TurtleGachaAPI_MVCmodel
