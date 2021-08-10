@@ -64,14 +64,14 @@ tokenを作ったり、確率に応じてキャラを引いたりするなどの
  
 # DEMO
 
-<example>
-No.1
-![IMG_0223](https://user-images.githubusercontent.com/66200485/127758779-ed5f97f5-f406-414d-b137-75d913fcff27.JPG)  
-名前:ミドリガメ
-レア度：☆
-攻撃力：3
-防御力：3
-回復力:0
+<example>  
+No.1  
+![IMG_0223](https://user-images.githubusercontent.com/66200485/127758779-ed5f97f5-f406-414d-b137-75d913fcff27.JPG)    
+名前:ミドリガメ  
+レア度：☆  
+攻撃力：3  
+防御力：3  
+回復力:0  
 
 # Features
  
