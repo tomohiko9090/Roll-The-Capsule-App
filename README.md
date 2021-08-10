@@ -5,11 +5,11 @@
 # DEMO
  ![IMG_0223](https://user-images.githubusercontent.com/66200485/128810672-bc73e645-3abb-410c-bc3b-20dd6d759883.JPG)  
 キャラクターNo.1   
-名前:ミドリガメ  
-レア度：☆  
-攻撃力：3  
-防御力：3  
-回復力:0  
+名前  :ミドリガメ  
+レア度 ：☆  
+攻撃力 ：3  
+防御力 ：3  
+回復力 :0  
 
 # Features
 
