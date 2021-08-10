@@ -65,8 +65,8 @@ tokenを作ったり、確率に応じてキャラを引いたりするなどの
 # DEMO
 
 <example>  
-No.1  
- ![IMG_0223](https://user-images.githubusercontent.com/66200485/127758779-ed5f97f5-f406-414d-b137-75d913fcff27.JPG)    
+No.1   
+ ![IMG_0223](https://user-images.githubusercontent.com/66200485/128810672-bc73e645-3abb-410c-bc3b-20dd6d759883.JPG)
 名前:ミドリガメ  
 レア度：☆  
 攻撃力：3  
