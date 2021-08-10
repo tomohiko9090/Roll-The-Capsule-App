@@ -87,18 +87,22 @@ DEMOの実行方法など、"hoge"の基本的な使い方を説明する
 1. このリポジトリをclone
 2. 以下を実行
 以下を実行
-```
-工事中
-```
 ```bash
-git clone https://github.com/hoge/~
-cd examples
-python demo.py
+git clone https://github.com/tomohiko9090/CA_Tech_Dojo.git
+cd TurtleGachaAPI_MVCmodel
+go run main.go
 ```
  
-# Note
- 
-注意点などがあれば書く
+# Memo
+ 綺麗なコーディングを行う上で教わったアドバイスをメモしていきます。
+- 基本的に１単語でファイル名を付けること
+- ファイルの１文字目に大文字は使わないこと
+- APIでは一度発行したDBコネクションを使い倒す(毎回接続するのはアンチパターン)
+- handlerでmodelをよむの×(処理の流れ hendler -> controller -> model　とし、hendlerからmodelに跨がないようにする)
+- InsertUser, CreateUserのようにわかりやすい関数内にする
+- 「panic」にするとサーバーが落ちてしまうため、エラーハンドリングを行う
+- Golandの設定でwatchのgo fmt とgo imports で自動でリフォーマットできるようにする
+- 頭文字が大文字のものはPublicとなり、外部packageから参照が可能になる。また、小文字のものはPrivateとなり、外部packageから参照が不可能になる。
  
 # Author
  
