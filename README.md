@@ -67,7 +67,7 @@ tokenを作ったり、確率に応じてキャラを引いたりするなどの
 **フレームワーク**：echo v3.3.10  
 **開発環境**：MacOS
 **DB**：MySQL  
-**ライブラリ**
+**ライブラリ**：  
 "github.com/go-sql-driver/mysql"  
 "github.com/labstack/echo"  
 
