@@ -51,14 +51,9 @@ func GetCharacters(token string) (Characters, error) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	log.Println(userid)
-	fmt.Println(rows)
 	defer rows.Close()
-	println("エラー0")
 
 	for rows.Next() {
-		println("エラー1")
-
 		err := rows.Scan(&userCharacterID, &characterid)
 		//　キャラidからCharacterテーブルのname, rarityを取得
 		err = models.DB.QueryRow("SELECT name, rarity, attack, defense, recovery  FROM capsule.Character WHERE id = ?", characterid).
@@ -82,7 +77,6 @@ func GetCharacters(token string) (Characters, error) {
 		}
 		result_list = append(result_list, result)
 	}
-	println("エラー2")
 
 	results := Characters{result_list}
 	return results, nil
