@@ -1,6 +1,6 @@
 # Turtle Gacha API（CA_Tech_Dojo）
  
-カメさんガチャAPIは、日本に生息するカメをモチーフとしたキャラクターのガチャを行うことができるAPIです。
+「Turtle Gacha API」は、日本に生息するカメをモチーフとしたキャラクターのガチャを行うことができるAPIです。
  
 # DEMO
  ![IMG_0223](https://user-images.githubusercontent.com/66200485/128810672-bc73e645-3abb-410c-bc3b-20dd6d759883.JPG)  
