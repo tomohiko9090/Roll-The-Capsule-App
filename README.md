@@ -1,6 +1,6 @@
 # Turtle Gacha API（CA_Tech_Dojo）
  
-「Turtle Gacha API」は、日本に生息するカメをモチーフとしたキャラクターのガチャAPIです。
+「Turtle Gacha API」は、日本に生息するカメをモチーフとしたガチャAPIです。
  
 # DEMO
  ![IMG_0223](https://user-images.githubusercontent.com/66200485/128810672-bc73e645-3abb-410c-bc3b-20dd6d759883.JPG)  
@@ -103,6 +103,7 @@ go run main.go
 - 「panic」にするとサーバーが落ちてしまうため、エラーハンドリングを行う
 - Golandの設定でwatchのgo fmt とgo imports で自動でリフォーマットできるようにする
 - 頭文字が大文字のものはPublicとなり、外部packageから参照が可能になる。また、小文字のものはPrivateとなり、外部packageから参照が不可能になる。
+- Goではスネークケースではなく、キャメルケースを使う
  
 # Author
  
