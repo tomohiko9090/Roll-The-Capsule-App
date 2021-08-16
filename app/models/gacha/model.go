@@ -3,38 +3,43 @@ package gacha
 import (
 	"GachaAPI/app/models"
 	_ "database/sql"
-	"fmt"
-	"log"
 
 	_ "github.com/go-sql-driver/mysql"
 )
 
+var (
+	Error     Characters
+	character Character
+	user      User
+)
+
 // ②キャラ数取得
-func GetCharacterUnique() int {
+func GetCharacterUnique() (int, error) {
 
 	// characterテーブルからキャラ数取得
 	var total int
 	err := models.DB.QueryRow("SELECT COUNT(*) FROM capsule.Character").Scan(&total)
 	if err != nil {
-		log.Fatal(err)
+		return -1, err
 	}
-	return total
+	return total, nil
 }
 
 // ④当たったキャラのインサート
-func InsertCharacters(token string, ans_id []int) {
+func InsertCharacters(token string, ans_id []int) error {
 
 	// tokenからidを引っ張ってくる
-	var userid string
-	if err := models.DB.QueryRow("SELECT id FROM capsule.User WHERE token = ?", token).Scan(&userid); err != nil {
-		fmt.Println(err)
+	err := models.DB.QueryRow("SELECT * FROM capsule.User WHERE token = ?", token).
+		Scan(&user.ID, &user.Name, &user.Token)
+	if err != nil {
+		return err
 	}
 
 	// usercharacterIDの長さを取得
 	var total int
-	err := models.DB.QueryRow("SELECT COUNT(*) FROM capsule.Possess").Scan(&total)
+	err = models.DB.QueryRow("SELECT COUNT(*) FROM capsule.Possess").Scan(&total)
 	if err != nil {
-		panic(err.Error())
+		return err
 	}
 	usercharacterID := total + 1
 
@@ -42,68 +47,52 @@ func InsertCharacters(token string, ans_id []int) {
 	for i := 0; i < len(ans_id); i++ {
 		stmtInsert, err := models.DB.Prepare("INSERT INTO Possess(user_id, usercharacterID, character_id) VALUES(?, ?, ?)")
 		if err != nil {
-			panic(err.Error())
+			return err
 		}
 		defer stmtInsert.Close()
 
-		result1, err := stmtInsert.Exec(userid, usercharacterID+i, ans_id[i])
+		result1, err := stmtInsert.Exec(user.ID, usercharacterID+i, ans_id[i])
+
 		if err != nil {
-			panic(err.Error())
+			return err
 		}
 		_, err = result1.LastInsertId()
 		if err != nil {
-			panic(err.Error())
+			return err
 		}
 	}
+	return nil // ここまで実行できていれば、nilを返す
 }
 
 // ⑤当たったキャラ情報を取得
-type Characters struct {
-	Results []Results `json:"results"`
-}
+func GetCharactersData(ans_id []int) (Characters, error) {
 
-type Results struct {
-	UserID        int    `json:"userID"`
-	UserName      string `json:"userName"`
-	CharacterName string `json:"characterName"`
-	Rarity        string `json:"rarity"`
-}
-
-func GetCharactersData(ans_id []int, token string) Characters {
-
-	var (
-		userid        int
-		username      string
-		charactername string
-		rarity        string
-	)
-
-	result_list := []Results{}
+	resultlist := []GachaResults{}
 
 	// 複数のキャラnameとrarityを取得
 	for i := 0; i < len(ans_id); i++ {
-		rows, _ := models.DB.Query("SELECT name,rarity FROM capsule.Character WHERE id = ?", ans_id[i])
+
+		rows, err := models.DB.Query("SELECT * FROM capsule.Character WHERE id = ?", ans_id[i])
+		if err != nil {
+			return Error, err
+		}
 		defer rows.Close()
 
 		rows.Next()
-		rows.Scan(&charactername, &rarity)
+		rows.Scan(&character.CharacterID, &character.Name, &character.Rarity, &character.Attack, &character.Defence, &character.Recovery)
 
-		rows2, _ := models.DB.Query("SELECT id,name FROM capsule.User WHERE token = ?", token)
-		defer rows2.Close()
-
-		rows2.Next()
-		rows2.Scan(&userid, &username)
-
-		result := Results{
-			UserID:        userid,
-			UserName:      username,
-			CharacterName: charactername,
-			Rarity:        rarity,
+		result := GachaResults{
+			UserID:        user.ID,
+			UserName:      user.Name,
+			CharacterName: character.Name,
+			Rarity:        character.Rarity,
+			Attack:        character.Attack,
+			Defence:       character.Defence,
+			Recovery:      character.Recovery,
 		}
-
-		result_list = append(result_list, result)
+		resultlist = append(resultlist, result)
 	}
 
-	results := Characters{result_list}
-	return results
+	results := Characters{resultlist}
+	return results, nil
 }

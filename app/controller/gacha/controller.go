@@ -1,4 +1,4 @@
-package gacha
+package controller
 
 import (
 	"GachaAPI/app/models/gacha"
@@ -6,19 +6,26 @@ import (
 	"time"
 )
 
-func DrowCharacters(token string, drows int) gacha.Characters {
+var Error gacha.Characters
+
+func DrowCharacters(token string, drows int) (gacha.Characters, error) {
 	// キャラクターユニーク数の取得
-	total := gacha.GetCharacterUnique()
+	total, err := gacha.GetCharacterUnique()
+	if err != nil {
+		return Error, err
+	}
 
 	// ガチャを回す
 	ans_id := getCharacters(drows, total)
 
 	// 当たったキャラクターをインサートする
-	gacha.InsertCharacters(token, ans_id)
-
+	err = gacha.InsertCharacters(token, ans_id)
+	if err != nil {
+		return Error, err
+	}
 	// 当たったキャラ情報の取得
-	results := gacha.GetCharactersData(ans_id, token)
-	return results
+	results, err := gacha.GetCharactersData(ans_id)
+	return results, nil
 }
 
 func getCharacters(times int, total int) []int {

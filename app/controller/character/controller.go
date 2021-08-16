@@ -4,10 +4,15 @@ import (
 	"GachaAPI/app/models/character"
 )
 
-func GetCharacters(token string) (string character.Characters) {
+var Error character.Characters
+
+func GetCharacters(token string) (character.Characters, error) {
 	// キャラクター一覧を取得する
-	characters, _ := character.GetCharacters(token)
+	characters, err := character.GetCharacters(token)
+	if err != nil {
+		return Error, err
+	}
 	// トークンからユーザーidの取得
 
-	return characters
+	return characters, nil
 }

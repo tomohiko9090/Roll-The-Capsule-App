@@ -3,81 +3,62 @@ package character
 import (
 	"GachaAPI/app/models"
 	_ "bytes"
-	"fmt"
 	_ "fmt"
-	"log"
 
 	_ "github.com/go-sql-driver/mysql"
 )
 
+var Error Characters
+
 // 3. キャラクター一覧取得
-type Characters struct {
-	Results []Results `json:"characters"`
-}
-
-type Results struct {
-	UserCharacterID int    `json:"userID"`
-	CharacterID     int    `json:"userName"`
-	Name            string `json:"characterName"`
-	Rarity          string `json:"rarity"`
-	Attack          int    `json:"attack"`
-	Defence         int    `json:"defence"`
-	Recovery        int    `json:"recovery"`
-}
-
 func GetCharacters(token string) (Characters, error) {
 
+	var user User
+
 	// トークンからユーザーidの取得
-	var userid string
-	err := models.DB.QueryRow("SELECT id FROM capsule.User WHERE token = ?", token).Scan(&userid)
+	err := models.DB.QueryRow("SELECT * FROM capsule.User WHERE token = ?", token).Scan(&user.ID, &user.Name, &user.Token)
 	if err != nil {
-		fmt.Println(err)
+		return Error, err
 	}
 
-	// ユーザーidからキャラidの一覧とuserCharacterIDを取得
+	resultlist := []CharacterResults{}
+
 	var (
-		userCharacterID int
-		characterid     int
-		name            string
-		rarity          string
-		attack          int
-		defence         int
-		recovery        int
+		possess   Possess
+		character Character
 	)
 
-	result_list := []Results{}
-
-	rows, err := models.DB.Query("SELECT userCharacterID, character_id FROM capsule.Possess WHERE user_id = ?", userid)
+	rows, err := models.DB.Query("SELECT * FROM capsule.Possess WHERE user_id = ?", user.ID)
 	if err != nil {
-		log.Fatal(err)
+		return Error, err
 	}
 	defer rows.Close()
 
 	for rows.Next() {
-		err := rows.Scan(&userCharacterID, &characterid)
+		err := rows.Scan(&possess.UserID, &possess.UserCharacterID, &possess.CharacterID)
 		//　キャラidからCharacterテーブルのname, rarityを取得
-		err = models.DB.QueryRow("SELECT name, rarity, attack, defense, recovery  FROM capsule.Character WHERE id = ?", characterid).
-			Scan(&name, &rarity, &attack, &defence, &recovery)
+		err = models.DB.QueryRow("SELECT * FROM capsule.Character WHERE id = ?", possess.CharacterID).
+			Scan(&character.CharacterID, &character.CharacterName, &character.Rarity, &character.Attack, &character.Defence, &character.Recovery)
 		if err != nil {
-			log.Fatal(err)
+			return Error, err
 		}
 		err = rows.Err()
 		if err != nil {
-			log.Fatal(err)
+			return Error, err
 		}
 
-		result := Results{
-			UserCharacterID: userCharacterID,
-			CharacterID:     characterid,
-			Name:            name,
-			Rarity:          rarity,
-			Attack:          attack,
-			Defence:         defence,
-			Recovery:        recovery,
+		result := CharacterResults{
+			UserCharacterID: possess.UserCharacterID,
+			CharacterID:     possess.CharacterID,
+			Name:            character.CharacterName,
+			Rarity:          character.Rarity,
+			Attack:          character.Attack,
+			Defence:         character.Defence,
+			Recovery:        character.Recovery,
 		}
-		result_list = append(result_list, result)
+		resultlist = append(resultlist, result)
 	}
 
-	results := Characters{result_list}
+	results := Characters{resultlist}
 	return results, nil
 }

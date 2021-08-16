@@ -1,9 +1,11 @@
-package handler
+package gachahandler
 
 import (
 	controller "GachaAPI/app/controller/gacha"
 	"net/http"
 	"strconv"
+
+	"github.com/labstack/gommon/log"
 
 	"github.com/labstack/echo"
 )
@@ -18,10 +20,14 @@ func DrowCharacters(c echo.Context) error {
 		⑤キャラの名前とレア度とユーザー名をfor文で取得(モデル)
 		⑥1個以上当たったキャラクターをレスポンス(ハンドラー)
 	*/
-	token := c.Request().Header.Get("Token")           //①
-	times := c.FormValue("times")                      //①
-	drows, _ := strconv.Atoi(times)                    //　文字列から整数に変換
-	results := controller.DrowCharacters(token, drows) //②③④⑤
+	token := c.Request().Header.Get("Token")                //①
+	times := c.FormValue("times")                           //①
+	drows, _ := strconv.Atoi(times)                         //　文字列から整数に変換
+	results, err := controller.DrowCharacters(token, drows) //②③④⑤
+	if err != nil {
+		log.Error(err) // ターミナル上にエラーを表示する
+		return c.JSON(http.StatusInternalServerError, "エラー:ガチャが実行されませんでした")
+	}
 
 	return c.JSON(http.StatusOK, results) //⑥
 }
