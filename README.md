@@ -3,6 +3,8 @@
 「Turtle Gacha API」は、日本に生息するカメをモチーフとしたガチャAPIです。
  
 # DEMO
+例)ガチャ実行APIの場合  
+Headerに「token」, Bodyに「times」(ガチャを引きたい回数)をリクエスト    
  ![IMG_0223](https://user-images.githubusercontent.com/66200485/128810672-bc73e645-3abb-410c-bc3b-20dd6d759883.JPG)  
 キャラクターNo.1   
 名前 :ミドリガメ  
