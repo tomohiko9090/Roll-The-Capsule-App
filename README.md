@@ -4,10 +4,16 @@
  
 # DEMO
 例)ガチャ実行APIの場合  
-1. Headerに「token」, Bodyに「times」(ガチャを引きたい回数)をリクエストする    
- ![IMG_0223](https://user-images.githubusercontent.com/66200485/128810672-bc73e645-3abb-410c-bc3b-20dd6d759883.JPG)  
-<img width="425" alt="スクリーンショット 0003-08-17 午後4 40 45" src="https://user-images.githubusercontent.com/66200485/129684571-29bdc368-986a-44d4-81f5-d5f8b0db8655.png">
+<br>
+1. Headerに「token」, Bodyに「times」(ガチャを引きたい回数)をリクエストします。     
+<img width="392" alt="スクリーンショット 0003-08-17 午後4 42 55" src="https://user-images.githubusercontent.com/66200485/129684900-d4c290f9-c15a-4c1b-b588-00ae73098c67.png">  
+<br>
 
+2. 当たったキャラクターがJSON形式でレスポンスされます。  
+<img width="436" alt="スクリーンショット 0003-08-17 午後4 42 15" src="https://user-images.githubusercontent.com/66200485/129684802-f4606add-9058-4471-9369-1f3d69d4b099.png">  
+<br>
+イメージ画像(この画像は実装されていません。) 
+ ![IMG_0223](https://user-images.githubusercontent.com/66200485/128810672-bc73e645-3abb-410c-bc3b-20dd6d759883.JPG)  
 
 # Features
 
