@@ -61,6 +61,8 @@ tokenを作ったり、確率に応じてキャラを引いたりするなどの
 ## ディレクトリ構造
 <img width="170" alt="スクショ" src="https://user-images.githubusercontent.com/66200485/129654476-34336048-69a7-4f6b-9c58-263aabc9883d.png">
 
+## リレーショナルデータベース
+![スクリーンショット 0003-08-17 午後3 20 34](https://user-images.githubusercontent.com/66200485/129673939-5c5931d7-4a71-4aa6-845e-02bd718cc696.png)
 
 # Requirement
  
