@@ -4,14 +4,10 @@
  
 # DEMO
 例)ガチャ実行APIの場合  
-Headerに「token」, Bodyに「times」(ガチャを引きたい回数)をリクエスト    
+1. Headerに「token」, Bodyに「times」(ガチャを引きたい回数)をリクエストする    
  ![IMG_0223](https://user-images.githubusercontent.com/66200485/128810672-bc73e645-3abb-410c-bc3b-20dd6d759883.JPG)  
-キャラクターNo.1   
-名前 :ミドリガメ  
-レア度 ：☆  
-攻撃力 ：3  
-防御力 ：3  
-回復力 ：0  
+<img width="425" alt="スクリーンショット 0003-08-17 午後4 40 45" src="https://user-images.githubusercontent.com/66200485/129684571-29bdc368-986a-44d4-81f5-d5f8b0db8655.png">
+
 
 # Features
 
