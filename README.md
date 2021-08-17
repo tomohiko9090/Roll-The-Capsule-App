@@ -89,10 +89,10 @@ go get github.com/labstack/echo
  
 # Usage
  
-1. このリポジトリをcloneする
-2. TurtleGachaAPI_MVCmodelのディレクトリに移動する
-3. go run main.goする
-4. Postmanなどのアプリを使って、HeaderやBodyにKeyとValueを入れてリクエストする
+1. このリポジトリをclone
+2. TurtleGachaAPI_MVCmodelのディレクトリに移動
+3. 「go run main.go」を実行
+4. HeaderやBodyにKeyとValueを入れてリクエスト
 
 ```bash
 git clone https://github.com/tomohiko9090/CA_Tech_Dojo.git
