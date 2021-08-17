@@ -50,6 +50,9 @@ http://127.0.0.1:8080/gacha/draw
 http://127.0.0.1:8080/character/list  
 ユーザが所持しているキャラクター一覧情報を取得します。
 
+## リレーショナルデータベース
+![スクリーンショット 0003-08-17 午後3 20 34](https://user-images.githubusercontent.com/66200485/129673939-5c5931d7-4a71-4aa6-845e-02bd718cc696.png)
+
 ## MVCモデル
 - M : model層  
 DBへアクセスしたり、構造体を作成するところ  
@@ -60,9 +63,6 @@ tokenを作ったり、確率に応じてキャラを引いたりするなどの
 
 ## ディレクトリ構造
 <img width="170" alt="スクショ" src="https://user-images.githubusercontent.com/66200485/129654476-34336048-69a7-4f6b-9c58-263aabc9883d.png">
-
-## リレーショナルデータベース
-![スクリーンショット 0003-08-17 午後3 20 34](https://user-images.githubusercontent.com/66200485/129673939-5c5931d7-4a71-4aa6-845e-02bd718cc696.png)
 
 # Requirement
  
