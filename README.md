@@ -80,7 +80,7 @@ tokenを作ったり、確率に応じてキャラを引いたりするなどの
 
 # Installation
 
-Requirementで列挙したライブラリなどのインストール方法を説明する
+Requirementで列挙したライブラリのインストール方法
  
 ```bash
 go get github.com/go-sqlt-driver/mysql
