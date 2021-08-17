@@ -91,7 +91,7 @@ go get github.com/labstack/echo
  
 1. このリポジトリをclone
 2. TurtleGachaAPI_MVCmodelのディレクトリに移動
-3. 「go run main.go」を実行
+3. main.goを実行
 4. HeaderやBodyにKeyとValueを入れてリクエスト
 
 ```bash
