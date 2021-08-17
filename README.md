@@ -15,7 +15,8 @@
 <br>
 
  ![IMG_0223](https://user-images.githubusercontent.com/66200485/128810672-bc73e645-3abb-410c-bc3b-20dd6d759883.JPG)  
- イメージ画像(この画像は実装されていません。)  
+ イメージ画像  
+ (この画像は実装されていません。)  
 
 # Features
 
