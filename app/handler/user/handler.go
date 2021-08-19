@@ -8,7 +8,7 @@ import (
 	"github.com/labstack/gommon/log"
 )
 
-// 1.1. ユーザー作成
+// CreateUser -> 1.1. ユーザー作成
 func CreateUser(c echo.Context) error {
 	/*
 		①POSTされたnameを受け取る(ハンドラー)
@@ -27,7 +27,7 @@ func CreateUser(c echo.Context) error {
 	return c.JSON(http.StatusOK, tokenStruct) //⑤
 }
 
-// 1.2. ユーザー取得
+// GetUser -> 1.2. ユーザー取得
 func GetUser(c echo.Context) error {
 	/*
 		①tokenを受け取る(ハンドラー)
@@ -41,11 +41,10 @@ func GetUser(c echo.Context) error {
 		return c.JSON(http.StatusInternalServerError, "エラー：ユーザーが取得できませんでした")
 	}
 	nameStruct := GetName{user.Name}
-	c.JSON(http.StatusOK, nameStruct) //③
-	return nil
+	return c.JSON(http.StatusOK, nameStruct)
 }
 
-// 1.3. ユーザー更新
+// UpdateUser -> 1.3. ユーザー更新
 func UpdateUser(c echo.Context) error {
 	/*
 		①tokenと新しいnameを受け取る(ハンドラー)

@@ -8,7 +8,7 @@ import (
 
 var Error user.User
 
-// 1.1. ユーザー作成
+// CreateUser -> 1.1. ユーザー作成
 func CreateUser(name string) (string, error) {
 
 	// tokenを作成する
@@ -21,7 +21,7 @@ func CreateUser(name string) (string, error) {
 	return token, nil
 }
 
-// ランダムでtokenを発行
+// randomInt -> ランダムでtokenを発行
 func randomInt(min, max int) int {
 	return min + rand.Intn(max-min)
 }
@@ -34,7 +34,7 @@ func randomString(len int) string {
 	return string(bytes)
 }
 
-// 1.2. ユーザー取得
+// GetUser -> 1.2. ユーザー取得
 func GetUser(token string) (user.User, error) {
 	// ユーザーnameを取得する
 	getUser, err := user.SelectUser(token)
@@ -44,13 +44,14 @@ func GetUser(token string) (user.User, error) {
 	return getUser, nil
 }
 
-// 1.3. ユーザー更新
+// UpdateUser -> 1.3. ユーザー更新
 func UpdateUser(token string, newName string) error {
 
 	// tokenで認証し、ユーザーnameを変更する
 	err := user.UpdateUser(token, newName)
+
 	if err != nil {
 		return err
 	}
-	return err
+	return nil
 }

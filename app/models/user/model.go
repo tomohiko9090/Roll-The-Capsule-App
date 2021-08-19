@@ -10,7 +10,7 @@ import (
 
 var Error User
 
-// 1.1. ユーザー作成
+// InsertUser -> 1.1. ユーザー作成
 func InsertUser(name string, token string) error {
 
 	// idの発行
@@ -30,7 +30,7 @@ func InsertUser(name string, token string) error {
 	return nil
 }
 
-// 1.2. ユーザー取得
+// SelectUser -> 1.2. ユーザー取得
 func SelectUser(token string) (User, error) {
 	var user User
 	err := models.DB.QueryRow("SELECT * FROM capsule.User WHERE token = ?", token).Scan(&user.ID, &user.Name, &user.Token)
@@ -40,20 +40,15 @@ func SelectUser(token string) (User, error) {
 	return user, nil
 }
 
-// 1.3. ユーザー更新
+// UpdateUser -> 1.3. ユーザー更新
 func UpdateUser(name string, token string) error {
 
 	// Userテーブルのnameを新しい名前に変更
 	ins, err := models.DB.Prepare("UPDATE capsule.User SET name = ? WHERE token = ?")
-
+	fmt.Println(err)
 	if err != nil {
 		return err
 	}
-
-	t1, err := ins.Exec(name, token)
-	if err != nil {
-		return err
-	}
-	fmt.Println(t1)
+	ins.Exec(name, token)
 	return nil
 }

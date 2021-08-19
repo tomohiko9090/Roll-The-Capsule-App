@@ -13,7 +13,7 @@ var (
 	user      User
 )
 
-// ②キャラ数取得
+// GetCharacterUnique -> ②キャラ数取得
 func GetCharacterUnique() (int, error) {
 
 	// characterテーブルからキャラ数取得
@@ -25,7 +25,7 @@ func GetCharacterUnique() (int, error) {
 	return total, nil
 }
 
-// ④当たったキャラのインサート
+// InsertCharacters -> ④当たったキャラのインサート
 func InsertCharacters(token string, ans_id []int) error {
 
 	// tokenからidを引っ張ってくる
@@ -64,10 +64,10 @@ func InsertCharacters(token string, ans_id []int) error {
 	return nil // ここまで実行できていれば、nilを返す
 }
 
-// ⑤当たったキャラ情報を取得
+// GetCharactersData -> ⑤当たったキャラ情報を取得
 func GetCharactersData(ans_id []int) (Characters, error) {
 
-	resultlist := []GachaResults{}
+	resultList := []Results{}
 
 	// 複数のキャラnameとrarityを取得
 	for i := 0; i < len(ans_id); i++ {
@@ -81,7 +81,7 @@ func GetCharactersData(ans_id []int) (Characters, error) {
 		rows.Next()
 		rows.Scan(&character.CharacterID, &character.Name, &character.Rarity, &character.Attack, &character.Defence, &character.Recovery)
 
-		result := GachaResults{
+		result := Results{
 			UserID:        user.ID,
 			UserName:      user.Name,
 			CharacterName: character.Name,
@@ -90,9 +90,9 @@ func GetCharactersData(ans_id []int) (Characters, error) {
 			Defence:       character.Defence,
 			Recovery:      character.Recovery,
 		}
-		resultlist = append(resultlist, result)
+		resultList = append(resultList, result)
 	}
 
-	results := Characters{resultlist}
+	results := Characters{resultList}
 	return results, nil
 }

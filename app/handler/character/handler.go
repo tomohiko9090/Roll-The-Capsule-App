@@ -9,7 +9,7 @@ import (
 	"github.com/labstack/echo"
 )
 
-// 3. キャラクター関連API
+// GetCharacters -> 3. キャラクター関連API
 func GetCharacters(c echo.Context) error {
 	/*
 		①tokenを受け取る(ハンドラー)

@@ -1,11 +1,13 @@
 package gacha
 
-// DB取得構造体
+// User DB取得構造体
 type User struct {
 	ID    int
 	Name  string
 	Token string
 }
+
+// Character DB取得構造体
 type Character struct {
 	CharacterID int
 	Name        string
@@ -15,8 +17,8 @@ type Character struct {
 	Recovery    int
 }
 
-// レスポンス構造体
-type GachaResults struct {
+// Results レスポンス構造体
+type Results struct {
 	UserID        int
 	UserName      string
 	CharacterName string
@@ -26,6 +28,7 @@ type GachaResults struct {
 	Recovery      int
 }
 
+// Characters レスポンス構造体
 type Characters struct {
-	Results []GachaResults `json:"results"`
+	Results []Results `json:"results"`
 }

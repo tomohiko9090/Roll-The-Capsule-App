@@ -10,7 +10,7 @@ import (
 
 var Error Characters
 
-// 3. キャラクター一覧取得
+// GetCharacters -> 3. キャラクター一覧取得
 func GetCharacters(token string) (Characters, error) {
 
 	var user User
@@ -21,7 +21,7 @@ func GetCharacters(token string) (Characters, error) {
 		return Error, err
 	}
 
-	resultlist := []CharacterResults{}
+	resultlist := []Results{}
 
 	var (
 		possess   Possess
@@ -47,7 +47,7 @@ func GetCharacters(token string) (Characters, error) {
 			return Error, err
 		}
 
-		result := CharacterResults{
+		result := Results{
 			UserCharacterID: possess.UserCharacterID,
 			CharacterID:     possess.CharacterID,
 			Name:            character.CharacterName,

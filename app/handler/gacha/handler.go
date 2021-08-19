@@ -10,7 +10,7 @@ import (
 	"github.com/labstack/echo"
 )
 
-// 2. ガチャの実行
+// DrowCharacters -> 2. ガチャの実行
 func DrowCharacters(c echo.Context) error {
 	/*
 		①tokenとtimesを受け取る(ハンドラー)

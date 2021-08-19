@@ -30,15 +30,16 @@ func DrowCharacters(token string, drows int) (gacha.Characters, error) {
 
 func getCharacters(times int, total int) []int {
 	// レア度が低いものの方が当たりやすくする
-	range_plus := 0
+	rangePlus := 0
 	for i := 1; i <= total; i++ {
-		range_plus += i // キャラid全て足しあわせる
+		rangePlus += i // キャラid全て足しあわせる
 	}
-	m := map[int]int{}
+
+	m := make(map[int]int, 0) // goらしい書き方で定義
 	count := 0
 	max := 0
 	for i := 1; i <= total; i++ {
-		b := 100 * (total + 1 - i) / range_plus // 当たり範囲を生成
+		b := 100 * (total + 1 - i) / rangePlus // 当たり範囲を生成
 		max = count + b
 		for j := count; j <= max; j++ { // 範囲をmapで定義する
 			m[j] = i
