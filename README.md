@@ -6,7 +6,7 @@
 例)ガチャ実行APIの場合  
 <br>
 
-1. main.goを実行ファイルを実行します。  
+1. main.goを実行します。  
 <br>
 
 2. Headerに「token」, Bodyに「times」(ガチャを引きたい回数)をリクエストします。     
