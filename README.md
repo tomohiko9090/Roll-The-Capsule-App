@@ -5,12 +5,16 @@
 # DEMO
 例)ガチャ実行APIの場合  
 <br>
-1. Headerに「token」, Bodyに「times」(ガチャを引きたい回数)をリクエストします。     
+
+1. main.goを実行ファイルを実行します。  
+<br>
+
+2. Headerに「token」, Bodyに「times」(ガチャを引きたい回数)をリクエストします。     
 <img width="373" alt="スクリーンショット 0003-08-17 午後4 49 01" src="https://user-images.githubusercontent.com/66200485/129685797-a0a400b1-6e5c-4024-8a69-44c0ff69d010.png">
 <img width="376" alt="スクリーンショット 0003-08-17 午後4 49 15" src="https://user-images.githubusercontent.com/66200485/129685852-23710bca-11e2-4059-b39f-7b462cd33e40.png">  
 <br>
 
-2. 当たったキャラクターがJSON形式でレスポンスされます。  
+3. 当たったキャラクターがJSON形式でレスポンスされます。  
 <img width="436" alt="スクリーンショット 0003-08-17 午後4 42 15" src="https://user-images.githubusercontent.com/66200485/129684802-f4606add-9058-4471-9369-1f3d69d4b099.png">  
 <br>
 
