@@ -1,4 +1,4 @@
-# Turtle Gacha API（CA_Tech_Dojo）
+# Turtle Gacha API （CA-Tech-Dojo）
  
 「Turtle Gacha API」は、日本に生息するカメをモチーフとしたガチャAPIです。
  
