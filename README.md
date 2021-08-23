@@ -7,6 +7,8 @@
 <br>
 
 1. main.goを実行します。  
+<img width="260" alt="スクリーンショット 0003-08-23 午後10 14 53" src="https://user-images.githubusercontent.com/66200485/130453561-33a18e22-d06f-4286-81e5-114ebcbf7692.png">
+
 <br>
 
 2. Headerに「token」, Bodyに「times」(ガチャを引きたい回数)を入れてリクエストします。     
