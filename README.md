@@ -28,7 +28,7 @@
 
 # Features
 
-## カメのレア度
+## Rarely
 - ☆1から☆7まである
 - レアなキャラほどガチャを引く確率が低くなるように設定 
 - 容易に新しいキャラが追加可能  
@@ -43,7 +43,7 @@
 |リュウキュウヤマガメ|☆☆☆☆☆☆|4|4|7|  
 |?|☆☆☆☆☆☆☆|6|6|6|   
  
-## 機能
+## Function
 1. **ユーザー関連API**  
     1. **ユーザー情報作成API(POST)**  
 http://127.0.0.1:8080/user/create  
@@ -69,19 +69,19 @@ http://127.0.0.1:8080/gacha/draw
 http://127.0.0.1:8080/character/list  
 ユーザが所持しているキャラクター一覧情報を取得します。
 
-## リレーショナルデータベース
+## RDB
 ![スクリーンショット 0003-08-17 午後3 20 34](https://user-images.githubusercontent.com/66200485/129673939-5c5931d7-4a71-4aa6-845e-02bd718cc696.png)
 
-## MVCモデル
+# DirectoryStructure
+<img width="266" alt="スクリーンショット 0003-08-23 午後9 52 49" src="https://user-images.githubusercontent.com/66200485/130450575-6b337bd6-afea-4bd5-8ee4-2425ff854ac8.png">  
+
+## Model-View-Controller
 - M : model層  
 DBへアクセスしたり、構造体を作成します。  
 - V : view = handler層  
 tokenからユーザー情報を読み取ったり、paramからIDを取得したりするなど、クライアントのリクエストとレスポンスを行います。　　
 - C : controller層  
 tokenを生成したり、確率に応じてキャラを引いたりするなど、ビジネスロジックを組み立てます。  
-
-## ディレクトリ構造
-<img width="266" alt="スクリーンショット 0003-08-23 午後9 52 49" src="https://user-images.githubusercontent.com/66200485/130450575-6b337bd6-afea-4bd5-8ee4-2425ff854ac8.png">
 
 # Requirement
  
