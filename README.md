@@ -11,7 +11,8 @@
 
 2. Headerに「token」, Bodyに「times」(ガチャを引きたい回数)を入れてリクエストします。     
 <img width="351" alt="スクリーンショット 0003-08-23 午後10 03 16" src="https://user-images.githubusercontent.com/66200485/130452035-bfca7dc4-9ca5-4fc3-b5a8-b376e251d67d.png">
-<img width="618" alt="スクリーンショット 0003-08-23 午後10 03 35" src="https://user-images.githubusercontent.com/66200485/130452113-e05e1bfd-484b-488c-bb3a-414b9ecdb9c5.png">
+<img width="608" alt="スクリーンショット 0003-08-23 午後10 05 55" src="https://user-images.githubusercontent.com/66200485/130452347-60a97578-c06a-4ac3-a473-af7e8e10b0b7.png">
+
 <br>
 
 3. 当たったキャラクターがJSON形式でレスポンスされます。  
