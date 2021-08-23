@@ -77,7 +77,7 @@ tokenからユーザー情報を読み取ったり、paramからIDを取得し�
 tokenを生成したり、確率に応じてキャラを引いたりするなど、ビジネスロジックを組み立てます。  
 
 ## ディレクトリ構造
-<img width="170" alt="スクショ" src="https://user-images.githubusercontent.com/66200485/129654476-34336048-69a7-4f6b-9c58-263aabc9883d.png">
+<img width="266" alt="スクリーンショット 0003-08-23 午後9 52 49" src="https://user-images.githubusercontent.com/66200485/130450575-6b337bd6-afea-4bd5-8ee4-2425ff854ac8.png">
 
 # Requirement
  
