@@ -16,7 +16,8 @@
 <br>
 
 3. 当たったキャラクターがJSON形式でレスポンスされます。  
-<img width="436" alt="スクリーンショット 0003-08-17 午後4 42 15" src="https://user-images.githubusercontent.com/66200485/129684802-f4606add-9058-4471-9369-1f3d69d4b099.png">  
+<img width="378" alt="スクリーンショット 0003-08-23 午後10 08 26" src="https://user-images.githubusercontent.com/66200485/130452706-9fbbafa7-966f-4d9a-9e7f-ab902499651f.png">
+
 <br>
 
  ![IMG_0223](https://user-images.githubusercontent.com/66200485/128810672-bc73e645-3abb-410c-bc3b-20dd6d759883.JPG)  
