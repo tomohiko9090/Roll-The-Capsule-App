@@ -6,12 +6,11 @@ import (
 	"time"
 )
 
-var Error user.User
-
-// CreateUser -> 1.1. ユーザー作成
+// CreateUser 1.1. ユーザー作成
 func CreateUser(name string) (string, error) {
 
 	// tokenを作成する
+
 	token := randomString(10)
 	// userModelをDBにINSERTする
 	err := user.InsertUser(name, token)
@@ -34,22 +33,25 @@ func randomString(len int) string {
 	return string(bytes)
 }
 
-// GetUser -> 1.2. ユーザー取得
+// GetUser 1.2. ユーザー取得
 func GetUser(token string) (user.User, error) {
 	// ユーザーnameを取得する
-	getUser, err := user.SelectUser(token)
+	user, err := user.SelectUser(token)
 	if err != nil {
-		return Error, err
+		return user, err
 	}
-	return getUser, nil
+	return user, nil
 }
 
-// UpdateUser -> 1.3. ユーザー更新
+// UpdateUser 1.3. ユーザー更新
 func UpdateUser(token string, newName string) error {
 
 	// tokenで認証し、ユーザーnameを変更する
 	err := user.UpdateUser(token, newName)
-
+	if err != nil {
+		return err
+	}
+	_, err = user.SelectUser(token)
 	if err != nil {
 		return err
 	}

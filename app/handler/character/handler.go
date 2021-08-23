@@ -14,13 +14,40 @@ func GetCharacters(c echo.Context) error {
 	/*
 		①tokenを受け取る(ハンドラー)
 		②ユーザーIDの取得, ユーザーの所持キャラクター取得(モデル)
-		③userCharacterID, characterID, name, rarity情報をレスポンス(ハンドラー)
+		③レスポンス(ハンドラー)
 	*/
-	token := c.Request().Header.Get("Token")           //①
-	characters, err := controller.GetCharacters(token) // ②
+
+	// ①
+	token := c.Request().Header.Get("X-token")
+
+	// ②
+	possessList, err := controller.GetPossessList(token)
 	if err != nil {
 		log.Error(err) // ターミナル上にエラーを表示する
 		return c.JSON(http.StatusInternalServerError, "エラー：キャラクター一覧を取得できませんでした")
 	}
-	return c.JSON(http.StatusOK, characters) //③
+	possessLength := len(possessList)
+
+	var characterList []UserCharacter
+	for i := 0; i < possessLength; i++ {
+		character, err := controller.GetCharacter(possessList[i])
+		if err != nil {
+			log.Error(err) // ターミナル上にエラーを表示する
+			return c.JSON(http.StatusInternalServerError, "エラー：キャラクター一覧を取得できませんでした")
+		}
+		// マッピング
+		userCharacter := UserCharacter{
+			UserCharacterID: possessList[i].UserCharacterID,
+			CharacterID:     possessList[i].CharacterID,
+			Name:            character.CharacterName,
+			Rarity:          character.Rarity,
+			Attack:          character.Attack,
+			Defence:         character.Defence,
+			Recovery:        character.Recovery,
+		}
+		characterList = append(characterList, userCharacter)
+	}
+	characterListResponse := CharacterListResponse{characterList}
+
+	return c.JSON(http.StatusOK, characterListResponse) //③
 }

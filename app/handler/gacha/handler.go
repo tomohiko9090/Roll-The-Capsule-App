@@ -2,8 +2,10 @@ package gachahandler
 
 import (
 	controller "GachaAPI/app/controller/gacha"
+	"encoding/json"
+	"fmt"
+	"io/ioutil"
 	"net/http"
-	"strconv"
 
 	"github.com/labstack/gommon/log"
 
@@ -17,17 +19,60 @@ func DrowCharacters(c echo.Context) error {
 		②キャラ数取得(モデル)
 		③1回以上ガチャを回す(コントローラ)
 		④当たったキャラをDBにfor文でインサート(モデル)
-		⑤キャラの名前とレア度とユーザー名をfor文で取得(モデル)
+		⑤キャラの名前、レア度などをfor文で取得(モデル)
 		⑥1個以上当たったキャラクターをレスポンス(ハンドラー)
 	*/
-	token := c.Request().Header.Get("Token")                //①
-	times := c.FormValue("times")                           //①
-	drows, _ := strconv.Atoi(times)                         //　文字列から整数に変換
-	results, err := controller.DrowCharacters(token, drows) //②③④⑤
+	// ①
+	token := c.Request().Header.Get("X-token")
+
+	// Bodyを読む
+	jsonBlob, err := ioutil.ReadAll(c.Request().Body)
+	if err != nil {
+		fmt.Println("ioutil ReadAll error:", err)
+		return err
+	}
+	// マッピング
+	var gachaDrawRequest = new(GachaDrawRequest)
+	if err := json.Unmarshal(jsonBlob, gachaDrawRequest); err != nil {
+		fmt.Println("JSON Unmarshal error:", err)
+		return err
+	}
+
+	// nameに入力がなかったらエラーを返す
+	if gachaDrawRequest.Times == 0 {
+		return c.JSON(http.StatusInternalServerError, "エラー:ガチャが実行されませんでした")
+	}
+
+	//　②
+	characterLength, err := controller.GetCharacterLength()
 	if err != nil {
 		log.Error(err) // ターミナル上にエラーを表示する
 		return c.JSON(http.StatusInternalServerError, "エラー:ガチャが実行されませんでした")
 	}
 
-	return c.JSON(http.StatusOK, results) //⑥
+	// ③④⑤
+	var resultCharacterIDs []int
+	resultCharacterIDs, err = controller.DrowCharacter(characterLength, token, gachaDrawRequest.Times)
+	if err != nil {
+		log.Error(err) // ターミナル上にエラーを表示する
+		return c.JSON(http.StatusInternalServerError, "エラー:ガチャが実行されませんでした")
+	}
+
+	var GachaDrawLIst []GachaResult
+	for i := 0; i < gachaDrawRequest.Times; i++ {
+
+		// キャラクター情報の取得
+		character, err := controller.GetCharacter(resultCharacterIDs[i])
+		if err != nil {
+			return c.JSON(http.StatusInternalServerError, "エラー:ガチャが実行されませんでした")
+		}
+		//マッピング
+		gachaResult := GachaResult{
+			CharacterID: character.CharacterID,
+			Name:        character.CharacterName,
+		}
+		GachaDrawLIst = append(GachaDrawLIst, gachaResult)
+	}
+	gachaDrawResponse := GachaDrawResponse{GachaDrawLIst}
+	return c.JSON(http.StatusOK, gachaDrawResponse) //⑥
 }

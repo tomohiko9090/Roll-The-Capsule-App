@@ -1,11 +1,11 @@
 package handler
 
-// PostToken -> 1.1 作成
-type PostToken struct {
+// UserCreateResponse 1.1 作成
+type UserCreateResponse struct {
 	Token string `json:"token"`
 }
 
-// GetName -> 1.2 取得
-type GetName struct {
+// UserGetResponse 1.2 取得
+type UserGetResponse struct {
 	Name string `json:"name"`
 }

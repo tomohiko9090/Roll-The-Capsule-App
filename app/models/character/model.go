@@ -8,57 +8,24 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 )
 
-var Error Characters
+// SelectCharacter キャラクターID -> Characterテーブル構造体
+func SelectCharacter(characterId int) (Character, error) {
+	var character Character
+	err := models.DB.QueryRow("SELECT * FROM capsule.Character WHERE id = ?", characterId).
+		Scan(&character.CharacterID, &character.CharacterName, &character.Rarity, &character.Attack, &character.Defence, &character.Recovery)
 
-// GetCharacters -> 3. キャラクター一覧取得
-func GetCharacters(token string) (Characters, error) {
-
-	var user User
-
-	// トークンからユーザーidの取得
-	err := models.DB.QueryRow("SELECT * FROM capsule.User WHERE token = ?", token).Scan(&user.ID, &user.Name, &user.Token)
 	if err != nil {
-		return Error, err
+		return character, err
 	}
+	return character, nil
+}
 
-	resultlist := []Results{}
-
-	var (
-		possess   Possess
-		character Character
-	)
-
-	rows, err := models.DB.Query("SELECT * FROM capsule.Possess WHERE user_id = ?", user.ID)
+// GetCharacterLength なし -> キャラクターのユニーク数
+func GetCharacterLength() (int, error) {
+	var characterLength int
+	err := models.DB.QueryRow("SELECT COUNT(*) FROM capsule.Character").Scan(&characterLength)
 	if err != nil {
-		return Error, err
+		return characterLength, err
 	}
-	defer rows.Close()
-
-	for rows.Next() {
-		err := rows.Scan(&possess.UserID, &possess.UserCharacterID, &possess.CharacterID)
-		//　キャラidからCharacterテーブルのname, rarityを取得
-		err = models.DB.QueryRow("SELECT * FROM capsule.Character WHERE id = ?", possess.CharacterID).
-			Scan(&character.CharacterID, &character.CharacterName, &character.Rarity, &character.Attack, &character.Defence, &character.Recovery)
-		if err != nil {
-			return Error, err
-		}
-		err = rows.Err()
-		if err != nil {
-			return Error, err
-		}
-
-		result := Results{
-			UserCharacterID: possess.UserCharacterID,
-			CharacterID:     possess.CharacterID,
-			Name:            character.CharacterName,
-			Rarity:          character.Rarity,
-			Attack:          character.Attack,
-			Defence:         character.Defence,
-			Recovery:        character.Recovery,
-		}
-		resultlist = append(resultlist, result)
-	}
-
-	results := Characters{resultlist}
-	return results, nil
+	return characterLength, nil
 }

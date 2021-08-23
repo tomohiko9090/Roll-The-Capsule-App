@@ -3,52 +3,63 @@ package user
 import (
 	"GachaAPI/app/models"
 	_ "database/sql"
-	"fmt"
 
 	_ "github.com/go-sql-driver/mysql"
 )
 
-var Error User
-
-// InsertUser -> 1.1. ユーザー作成
-func InsertUser(name string, token string) error {
-
-	// idの発行
-	var total int
-	err := models.DB.QueryRow("SELECT COUNT(*) FROM capsule.User").Scan(&total)
-	if err != nil {
-		return err
-	}
-	id := total + 1
-
-	// nameとtokenをインサート
-	ins, err := models.DB.Prepare("INSERT INTO User(id,name,token) VALUES(?,?,?)")
-	if err != nil {
-		return err
-	}
-	ins.Exec(id, name, token)
-	return nil
-}
-
-// SelectUser -> 1.2. ユーザー取得
+// SelectUser トークン -> Userテーブル構造体
 func SelectUser(token string) (User, error) {
 	var user User
-	err := models.DB.QueryRow("SELECT * FROM capsule.User WHERE token = ?", token).Scan(&user.ID, &user.Name, &user.Token)
+	// tokenからidを引っ張ってくる
+	err := models.DB.QueryRow("SELECT * FROM capsule.User WHERE token = ?", token).
+		Scan(&user.ID, &user.Name, &user.Token)
 	if err != nil {
-		return Error, err
+		return user, err
 	}
 	return user, nil
 }
 
-// UpdateUser -> 1.3. ユーザー更新
-func UpdateUser(name string, token string) error {
+// InsertUser ユーザーネーム, トークン -> なし
+func InsertUser(name string, token string) error {
 
-	// Userテーブルのnameを新しい名前に変更
-	ins, err := models.DB.Prepare("UPDATE capsule.User SET name = ? WHERE token = ?")
-	fmt.Println(err)
+	// 新しいidを作成
+	userLength, err := getUserLength()
 	if err != nil {
 		return err
 	}
-	ins.Exec(name, token)
+	newId := userLength + 1
+
+	// nameとtokenをインサート
+	ins, err := models.DB.Prepare("INSERT INTO capsule.User(id,name,token) VALUES(?,?,?)")
+	if err != nil {
+		return err
+	}
+	ins.Exec(newId, name, token)
+	return nil
+}
+
+// GetUserLength なし -> ユーザーユニーク数
+func getUserLength() (int, error) {
+	var userLength int
+	err := models.DB.QueryRow("SELECT COUNT(*) FROM capsule.User").Scan(&userLength)
+	if err != nil {
+		return userLength, err
+	}
+	return userLength, nil
+}
+
+// UpdateUser トークン, ユーザーネーム ->　なし
+func UpdateUser(token string, newName string) error {
+
+	upd, err := models.DB.Prepare("UPDATE capsule.User SET name = ? WHERE token = ?")
+	if err != nil {
+		return err
+	}
+	defer upd.Close()
+
+	_, err = upd.Exec(newName, token)
+	if err != nil {
+		return err
+	}
 	return nil
 }
