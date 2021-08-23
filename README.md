@@ -72,7 +72,7 @@ http://127.0.0.1:8080/character/list
 ## RDB
 ![スクリーンショット 0003-08-17 午後3 20 34](https://user-images.githubusercontent.com/66200485/129673939-5c5931d7-4a71-4aa6-845e-02bd718cc696.png)
 
-# DirectoryStructure
+# Directory Structure
 <img width="266" alt="スクリーンショット 0003-08-23 午後9 52 49" src="https://user-images.githubusercontent.com/66200485/130450575-6b337bd6-afea-4bd5-8ee4-2425ff854ac8.png">  
 
 ## Model-View-Controller
@@ -126,6 +126,7 @@ go run main.go
 - Golandの設定でwatchのgo fmt とgo imports で自動でリフォーマットできるようにする
 - 頭文字が大文字のものはPublicとなり、外部packageから参照が可能になる。また、小文字のものはPrivateとなり、外部packageから参照が不可能になる。
 - Goではスネークケースではなく、キャメルケースを使う
+- modelでグローバル変数を使いますのはアンチパターン
 
 # KeyWords
 マッピング : 関連付けを行うこと  
