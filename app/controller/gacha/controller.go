@@ -4,7 +4,6 @@ import (
 	"GachaAPI/app/models/character"
 	"GachaAPI/app/models/possess"
 	user "GachaAPI/app/models/user"
-	"fmt"
 	"math/rand"
 	"time"
 )
@@ -87,6 +86,5 @@ func turnCharacterID(characterLength int, times int) []int {
 		n := rand.Intn(count + 1) // 乱数を発生させる
 		resultCharacterIDs = append(resultCharacterIDs, characterRange[n])
 	}
-	fmt.Println(resultCharacterIDs)
 	return resultCharacterIDs
 }
