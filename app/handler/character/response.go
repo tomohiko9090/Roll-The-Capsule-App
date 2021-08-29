@@ -1,6 +1,6 @@
 package characterResponse
 
-type UserCharacter struct {
+type CharacterResponse struct {
 	UserCharacterID int    `json:"userCharacterID"`
 	CharacterID     int    `json:"characterID"`
 	Name            string `json:"name"`
@@ -11,5 +11,5 @@ type UserCharacter struct {
 }
 
 type CharacterListResponse struct {
-	Characters []UserCharacter `json:"characters"`
+	Characters []CharacterResponse `json:"characters"`
 }

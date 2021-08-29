@@ -2,28 +2,28 @@ package character
 
 import (
 	"GachaAPI/app/models/character"
-	"GachaAPI/app/models/possess"
 	user2 "GachaAPI/app/models/user"
+	"GachaAPI/app/models/userCharacter"
 )
 
-// GetPossessList トークン -> possessテーブル構造体の配列
-func GetPossessList(token string) ([]possess.Possess, error) {
-	var possessList []possess.Possess
+// GetUserCharacterList トークン -> UserCharacterテーブル構造体の配列
+func GetUserCharacterList(token string) ([]userCharacter.UserCharacter, error) {
+	var userCharacterList []userCharacter.UserCharacter
 	// キャラクター情報を取得
 	user, err := user2.SelectUser(token)
 	if err != nil {
-		return possessList, err
+		return userCharacterList, err
 	}
-	possessList, err = possess.SelectPossessList(user.ID)
+	userCharacterList, err = userCharacter.SelectUserCharacterList(user.ID)
 	if err != nil {
-		return possessList, err
+		return userCharacterList, err
 	}
-	return possessList, nil
+	return userCharacterList, nil
 }
 
-// GetCharacter possessテーブル構造体 -> characterテーブル構造体
-func GetCharacter(possess possess.Possess) (character.Character, error) {
-	character, err := character.SelectCharacter(possess.CharacterID)
+// GetCharacter UserCharacterテーブル構造体 -> characterテーブル構造体
+func GetCharacter(userCharacter userCharacter.UserCharacter) (character.Character, error) {
+	character, err := character.SelectCharacter(userCharacter.CharacterID)
 	if err != nil {
 		return character, err
 	}

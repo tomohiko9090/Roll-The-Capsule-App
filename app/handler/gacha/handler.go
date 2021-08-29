@@ -3,7 +3,6 @@ package gachahandler
 import (
 	controller "GachaAPI/app/controller/gacha"
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 	"net/http"
 
@@ -28,26 +27,25 @@ func DrowCharacters(c echo.Context) error {
 	// Bodyを読む
 	jsonBlob, err := ioutil.ReadAll(c.Request().Body)
 	if err != nil {
-		fmt.Println("ioutil ReadAll error:", err)
-		return err
+		log.Error(err)
+		return c.JSON(http.StatusInternalServerError, "error：ServerError")
 	}
 	// マッピング
 	var gachaDrawRequest = new(GachaDrawRequest)
 	if err := json.Unmarshal(jsonBlob, gachaDrawRequest); err != nil {
-		fmt.Println("JSON Unmarshal error:", err)
-		return err
+		log.Error(err)
+		return c.JSON(http.StatusInternalServerError, "error：ServerError")
 	}
 
-	// nameに入力がなかったらエラーを返す
 	if gachaDrawRequest.Times == 0 {
-		return c.JSON(http.StatusInternalServerError, "エラー:ガチャが実行されませんでした")
+		return c.JSON(http.StatusBadRequest, "error：0 times drawing is bad")
 	}
 
-	//　②
+	// ②
 	characterLength, err := controller.GetCharacterLength()
 	if err != nil {
 		log.Error(err) // ターミナル上にエラーを表示する
-		return c.JSON(http.StatusInternalServerError, "エラー:ガチャが実行されませんでした")
+		return c.JSON(http.StatusInternalServerError, "error:ServerError")
 	}
 
 	// ③④⑤
@@ -55,16 +53,15 @@ func DrowCharacters(c echo.Context) error {
 	resultCharacterIDs, err = controller.DrowCharacter(characterLength, token, gachaDrawRequest.Times)
 	if err != nil {
 		log.Error(err) // ターミナル上にエラーを表示する
-		return c.JSON(http.StatusInternalServerError, "エラー:ガチャが実行されませんでした")
+		return c.JSON(http.StatusNotAcceptable, "error：Do not exist the user")
 	}
 
 	var GachaDrawLIst []GachaResult
-	for i := 0; i < gachaDrawRequest.Times; i++ {
-
+	for _, resultCharacterID := range resultCharacterIDs {
 		// キャラクター情報の取得
-		character, err := controller.GetCharacter(resultCharacterIDs[i])
+		character, err := controller.GetCharacter(resultCharacterID)
 		if err != nil {
-			return c.JSON(http.StatusInternalServerError, "エラー:ガチャが実行されませんでした")
+			return c.JSON(http.StatusInternalServerError, "error:ServerError")
 		}
 		//マッピング
 		gachaResult := GachaResult{
@@ -73,6 +70,5 @@ func DrowCharacters(c echo.Context) error {
 		}
 		GachaDrawLIst = append(GachaDrawLIst, gachaResult)
 	}
-	gachaDrawResponse := GachaDrawResponse{GachaDrawLIst}
-	return c.JSON(http.StatusOK, gachaDrawResponse) //⑥
+	return c.JSON(http.StatusOK, GachaDrawResponse{GachaDrawLIst}) //⑥
 }

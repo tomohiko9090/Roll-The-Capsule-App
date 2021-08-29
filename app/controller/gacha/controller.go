@@ -2,8 +2,8 @@ package controller
 
 import (
 	"GachaAPI/app/models/character"
-	"GachaAPI/app/models/possess"
 	user "GachaAPI/app/models/user"
+	"GachaAPI/app/models/userCharacter"
 	"math/rand"
 	"time"
 )
@@ -18,7 +18,7 @@ func GetCharacterLength() (int, error) {
 }
 
 // DrowCharacter キャラクターの種類の数, トークン, ガチャ回数 -> 当たったキャラクターIDの配列
-func DrowCharacter(characterLength int, token string, times int) ([]int, error) {
+func DrowCharacter(characterLength int, token string, numberOfTimes int) ([]int, error) {
 
 	var resultCharacterIDs []int
 
@@ -29,18 +29,12 @@ func DrowCharacter(characterLength int, token string, times int) ([]int, error) 
 	}
 
 	// ガチャで得られたキャラクターIDの配列
-	resultCharacterIDs = turnCharacterID(characterLength, times)
+	resultCharacterIDs = turnCharacterID(characterLength, numberOfTimes)
 
-	// possessの長さ
-	possessLength, err := possess.GetPossessLength()
-	if err != nil {
-		return resultCharacterIDs, err
-	}
-
-	for i := 0; i < times; i++ {
+	for times := 0; times < numberOfTimes; times++ {
 
 		// 当たったキャラクターIDをDBにインサート
-		err := possess.InsertPossess(user.ID, possessLength, i, resultCharacterIDs[i])
+		err := userCharacter.InsertUserCharacter(user.ID, resultCharacterIDs[times])
 		if err != nil {
 			return resultCharacterIDs, err
 		}
@@ -82,7 +76,7 @@ func turnCharacterID(characterLength int, times int) []int {
 
 	var resultCharacterIDs []int
 
-	for i := 0; i <= times; i++ {
+	for i := 0; i < times; i++ {
 		n := rand.Intn(count + 1) // 乱数を発生させる
 		resultCharacterIDs = append(resultCharacterIDs, characterRange[n])
 	}

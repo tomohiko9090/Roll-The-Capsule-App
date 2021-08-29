@@ -21,24 +21,23 @@ func GetCharacters(c echo.Context) error {
 	token := c.Request().Header.Get("X-token")
 
 	// ②
-	possessList, err := controller.GetPossessList(token)
+	userCharacterList, err := controller.GetUserCharacterList(token)
 	if err != nil {
 		log.Error(err) // ターミナル上にエラーを表示する
-		return c.JSON(http.StatusInternalServerError, "エラー：キャラクター一覧を取得できませんでした")
+		return c.JSON(http.StatusNotAcceptable, "error：Do not exist the user")
 	}
-	possessLength := len(possessList)
 
-	var characterList []UserCharacter
-	for i := 0; i < possessLength; i++ {
-		character, err := controller.GetCharacter(possessList[i])
+	var characterList []CharacterResponse
+	for _, userCharacter := range userCharacterList {
+		character, err := controller.GetCharacter(userCharacter)
 		if err != nil {
 			log.Error(err) // ターミナル上にエラーを表示する
-			return c.JSON(http.StatusInternalServerError, "エラー：キャラクター一覧を取得できませんでした")
+			return c.JSON(http.StatusInternalServerError, "error：ServerError")
 		}
 		// マッピング
-		userCharacter := UserCharacter{
-			UserCharacterID: possessList[i].UserCharacterID,
-			CharacterID:     possessList[i].CharacterID,
+		userCharacter := CharacterResponse{
+			UserCharacterID: userCharacter.UserCharacterID,
+			CharacterID:     userCharacter.CharacterID,
 			Name:            character.CharacterName,
 			Rarity:          character.Rarity,
 			Attack:          character.Attack,
@@ -47,7 +46,5 @@ func GetCharacters(c echo.Context) error {
 		}
 		characterList = append(characterList, userCharacter)
 	}
-	characterListResponse := CharacterListResponse{characterList}
-
-	return c.JSON(http.StatusOK, characterListResponse) //③
+	return c.JSON(http.StatusOK, CharacterListResponse{characterList}) //③
 }

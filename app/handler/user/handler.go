@@ -3,7 +3,6 @@ package handler
 import (
 	controller "GachaAPI/app/controller/user"
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 	"net/http"
 
@@ -25,30 +24,31 @@ func CreateUser(c echo.Context) error {
 	// Bodyを読む
 	jsonBlob, err := ioutil.ReadAll(c.Request().Body)
 	if err != nil {
-		fmt.Println("ioutil ReadAll error:", err)
-		return err
+		log.Error(err)
+		return c.JSON(http.StatusInternalServerError, "error：ServerError")
 	}
 
 	// マッピング
 	var userCreateRequest = new(UserCreateRequest)
 	if err := json.Unmarshal(jsonBlob, userCreateRequest); err != nil {
-		fmt.Println("JSON Unmarshal error:", err)
-		return err
+		log.Error(err)
+		return c.JSON(http.StatusInternalServerError, "error：ServerError")
 	}
 
 	// nameに入力がなかったらエラーを返す
-	if len(userCreateRequest.Name) == 0 {
-		return c.JSON(http.StatusInternalServerError, "エラー：ユーザーが作成されませんでした")
+	if len(userCreateRequest.Name) <= 2 || 10 <= len(userCreateRequest.Name) {
+		err := "error：Could not create user because length of a character string is bad"
+		log.Error(err)
+		return c.JSON(http.StatusBadRequest, err)
 	}
 
 	token, err := controller.CreateUser(userCreateRequest.Name) //②③④
 
 	if err != nil {
 		log.Error(err) // ターミナル上にエラーを表示する
-		return c.JSON(http.StatusInternalServerError, "エラー：ユーザーが作成されませんでした")
+		return c.JSON(http.StatusInternalServerError, "error：ServerError")
 	}
-	userCreateResponse := UserCreateResponse{token}
-	return c.JSON(http.StatusOK, userCreateResponse) //⑤
+	return c.JSON(http.StatusOK, UserCreateResponse{token}) //⑤
 }
 
 // GetUser 1.2. ユーザー取得
@@ -58,14 +58,13 @@ func GetUser(c echo.Context) error {
 		②Userテーブルからnameを取得(モデル)
 		③nameをレスポンス(ハンドラー)
 	*/
-	token := c.Request().Header.Get("Token") //①
-	user, err := controller.GetUser(token)   //②
+	token := c.Request().Header.Get("X-token") //①
+	user, err := controller.GetUser(token)     //②
 	if err != nil {
 		log.Error(err) // ターミナル上にエラーを表示する
-		return c.JSON(http.StatusInternalServerError, "エラー：ユーザーが取得できませんでした")
+		return c.JSON(http.StatusNotAcceptable, "error：Do not exist the user")
 	}
-	nameStruct := UserGetResponse{user.Name}
-	return c.JSON(http.StatusOK, nameStruct)
+	return c.JSON(http.StatusOK, UserGetResponse{user.Name})
 }
 
 // UpdateUser 1.3. ユーザー更新
@@ -81,25 +80,27 @@ func UpdateUser(c echo.Context) error {
 	// Bodyを読む
 	jsonBlob, err := ioutil.ReadAll(c.Request().Body)
 	if err != nil {
-		fmt.Println("ioutil ReadAll error:", err)
-		return err
+		log.Error(err)
+		return c.JSON(http.StatusInternalServerError, "error：ServerError")
 	}
 	// マッピング
 	var userUpdateRequest = new(UserUpdateRequest)
 	if err := json.Unmarshal(jsonBlob, userUpdateRequest); err != nil {
-		fmt.Println("JSON Unmarshal error:", err)
+		log.Error(err)
 		return err
 	}
 
 	// nameに入力がなかったらエラーを返す
-	if len(userUpdateRequest.Name) == 0 {
-		return c.JSON(http.StatusInternalServerError, "エラー：ユーザーが作成されませんでした")
+	if len(userUpdateRequest.Name) <= 2 || 10 <= len(userUpdateRequest.Name) {
+		err := "error：Could not update because length of a character string is bad"
+		log.Error(err)
+		return c.JSON(http.StatusBadRequest, err)
 	}
 
 	err = controller.UpdateUser(token, userUpdateRequest.Name) //②
 	if err != nil {
 		log.Error(err) // ターミナル上にエラーを表示する
-		return c.JSON(http.StatusInternalServerError, "エラー：ユーザーが更新できませんでした")
+		return c.JSON(http.StatusUnauthorized, "error：Could not Authenticate")
 	}
 	return c.JSON(http.StatusOK, http.StatusOK) //③
 }

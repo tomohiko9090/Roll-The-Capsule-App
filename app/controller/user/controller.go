@@ -8,9 +8,7 @@ import (
 
 // CreateUser 1.1. ユーザー作成
 func CreateUser(name string) (string, error) {
-
 	// tokenを作成する
-
 	token := randomString(10)
 	// userModelをDBにINSERTする
 	err := user.InsertUser(name, token)
