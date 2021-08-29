@@ -74,7 +74,7 @@ http://127.0.0.1:8080/character/list
 ![スクリーンショット 0003-08-29 午後1 26 42](https://user-images.githubusercontent.com/66200485/131238407-957730f7-0f0d-48d9-a491-30e53a401522.png)
 
 # Directory Structure
-<img width="266" alt="スクリーンショット 0003-08-23 午後9 52 49" src="https://user-images.githubusercontent.com/66200485/130450575-6b337bd6-afea-4bd5-8ee4-2425ff854ac8.png">  
+![スクリーンショット 0003-08-29 午後1 29 59](https://user-images.githubusercontent.com/66200485/131238485-d64d0ade-8c53-4f68-a633-5b2fcd94058c.png)
 
 ## Model-View-Controller
 - M : model層  
