@@ -6,7 +6,11 @@ RUN mkdir /go/src/work
 
 # コンテナログイン時のディレクトリ指定
 WORKDIR /go/src/work
+
 # ホストのファイルをコンテナの作業ディレクトリに移行
 ADD . /go/src/work
 
 EXPOSE 8080
+
+# # mysql-clientをインストール
+# RUN apt-get update && apt-get install -y mysql-client
