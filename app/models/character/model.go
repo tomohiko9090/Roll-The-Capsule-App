@@ -11,7 +11,7 @@ import (
 // SelectCharacter キャラクターID -> Characterテーブル構造体
 func SelectCharacter(characterId int) (Character, error) {
 	var character Character
-	err := models.DB.QueryRow("SELECT * FROM capsule.Character WHERE id = ?", characterId).
+	err := models.DB.QueryRow("SELECT * FROM Characters WHERE id = ?", characterId).
 		Scan(&character.CharacterID, &character.CharacterName, &character.Rarity, &character.Attack, &character.Defence, &character.Recovery)
 
 	if err != nil {
@@ -23,7 +23,7 @@ func SelectCharacter(characterId int) (Character, error) {
 // GetCharacterLength なし -> キャラクターのユニーク数
 func GetCharacterLength() (int, error) {
 	var characterLength int
-	err := models.DB.QueryRow("SELECT COUNT(*) FROM capsule.Character").Scan(&characterLength)
+	err := models.DB.QueryRow("SELECT COUNT(*) FROM Characters").Scan(&characterLength)
 	if err != nil {
 		return characterLength, err
 	}
