@@ -25,14 +25,14 @@ func CreateUser(c echo.Context) error {
 	jsonBlob, err := ioutil.ReadAll(c.Request().Body)
 	if err != nil {
 		log.Error(err)
-		return c.JSON(http.StatusInternalServerError, "error：ServerError")
+		return c.JSON(http.StatusInternalServerError, "error：ServerError1")
 	}
 
 	// マッピング
 	var userCreateRequest = new(UserCreateRequest)
 	if err := json.Unmarshal(jsonBlob, userCreateRequest); err != nil {
 		log.Error(err)
-		return c.JSON(http.StatusInternalServerError, "error：ServerError")
+		return c.JSON(http.StatusInternalServerError, "error：ServerError2")
 	}
 
 	// nameに入力がなかったらエラーを返す
@@ -46,7 +46,7 @@ func CreateUser(c echo.Context) error {
 
 	if err != nil {
 		log.Error(err) // ターミナル上にエラーを表示する
-		return c.JSON(http.StatusInternalServerError, "error：ServerError")
+		return c.JSON(http.StatusInternalServerError, "error：ServerError3")
 	}
 	return c.JSON(http.StatusOK, UserCreateResponse{token}) //⑤
 }

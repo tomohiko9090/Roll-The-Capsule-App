@@ -1,4 +1,4 @@
-package userCharacter
+package userCharacters
 
 import (
 	"GachaAPI/app/models"
@@ -7,7 +7,7 @@ import (
 // SelectUserCharacterList ユーザーID -> UserCharacterテーブル構造体の配列
 func SelectUserCharacterList(userId int) ([]UserCharacter, error) {
 	var userCharacterList []UserCharacter
-	rows, err := models.DB.Query("SELECT * FROM UserCharacter WHERE user_id = ?", userId)
+	rows, err := models.DB.Query("SELECT * FROM UserCharacters WHERE user_id = ?", userId)
 	if err != nil {
 		return userCharacterList, err
 	}
@@ -26,7 +26,7 @@ func SelectUserCharacterList(userId int) ([]UserCharacter, error) {
 
 // InsertUserCharacter ユーザーID, ガチャ途中実行数, 当たったキャラクターID -> なし
 func InsertUserCharacter(userId int, resultCharacterID int) error {
-	stmtInsert, err := models.DB.Prepare("INSERT INTO UserCharacter(user_id, character_id) VALUES(?, ?)")
+	stmtInsert, err := models.DB.Prepare("INSERT INTO UserCharacters(user_id, character_id) VALUES(?, ?)")
 	if err != nil {
 		return err
 	}

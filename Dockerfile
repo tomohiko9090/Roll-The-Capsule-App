@@ -11,6 +11,3 @@ WORKDIR /go/src/work
 ADD . /go/src/work
 
 EXPOSE 8080
-
-# # mysql-clientをインストール
-# RUN apt-get update && apt-get install -y mysql-client

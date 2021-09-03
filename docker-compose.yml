@@ -17,16 +17,14 @@ services:
           - ./mysql/db:/docker-entrypoint-initdb.d  #初期データをマウントする場所
         image: original_mysql_world # イメージの名前
         environment:
-          MYSQL_ROOT_HOST: host.docker.internal
-          MYSQL_ROOT_PASSWORD: taitasu2
+          MYSQL_ROOT_PASSWORD: xxxx
           MYSQL_DATABASE: capsule
           TZ: 'Asia/Tokyo'
         command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
-          # - MYSQL_ROOT_USER=root
-          # - MYSQL_ROOT_PASSWORD=taitasu2 #コンテナ内のMySQLを起動する際のパスワードを設定
-          # - MYSQL_ROOT_HOST= '%'
         ports: 
           - "3307:3306"
+        container_name: mysql-container
+
 
 
 

@@ -3,7 +3,7 @@ package controller
 import (
 	"GachaAPI/app/models/character"
 	user "GachaAPI/app/models/user"
-	"GachaAPI/app/models/userCharacter"
+	"GachaAPI/app/models/userCharacters"
 	"math/rand"
 	"time"
 )
@@ -34,7 +34,7 @@ func DrowCharacter(characterLength int, token string, numberOfTimes int) ([]int,
 	for times := 0; times < numberOfTimes; times++ {
 
 		// 当たったキャラクターIDをDBにインサート
-		err := userCharacter.InsertUserCharacter(user.ID, resultCharacterIDs[times])
+		err := userCharacters.InsertUserCharacter(user.ID, resultCharacterIDs[times])
 		if err != nil {
 			return resultCharacterIDs, err
 		}

@@ -1,4 +1,4 @@
-package userCharacter
+package userCharacters
 
 // UserCharacter DB取得構造体
 type UserCharacter struct {
