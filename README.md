@@ -150,7 +150,7 @@ go run main.go
  
 # Next
 1. Dockerでの環境構築
-2. 
+2. トランザクションを意識した開発にする
 
 # Author
  
