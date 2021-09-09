@@ -113,7 +113,7 @@ go get github.com/labstack/echo
 ```bash
 git clone https://github.com/tomohiko9090/CA_Tech_Dojo.git
 cd CA-Tech-Dojo
-go run main.go
+docker-compose up --build
 ```
  
 # Memo
