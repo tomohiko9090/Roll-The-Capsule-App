@@ -77,6 +77,7 @@ http://127.0.0.1:8080/character/list
 ![スクリーンショット 0003-09-09 午後10 06 55](https://user-images.githubusercontent.com/66200485/132691392-1f106255-a327-4c51-85bb-31a58a76b3b0.png)
 
 ## Model-View-Controller
+![1200px-MVC-Process svg](https://user-images.githubusercontent.com/66200485/132691581-97d185d8-e32a-4f6e-a240-6937c67c031e.png)  
 - M : model層  
 DBへアクセスしたり、構造体を作成します。  
 - V : view = handler層  
