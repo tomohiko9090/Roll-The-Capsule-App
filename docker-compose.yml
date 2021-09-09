@@ -21,7 +21,7 @@ services:
           MYSQL_DATABASE: capsule
           TZ: 'Asia/Tokyo'
         ports:
-          - "3307:3306"
+          - "3309:3306"
         container_name: "mysql-container"
 
 
