@@ -6,8 +6,9 @@
 例)ガチャ実行APIの場合  
 <br>
 
-1. main.goを実行します。  
-<img width="260" alt="スクリーンショット 0003-08-23 午後10 14 53" src="https://user-images.githubusercontent.com/66200485/130453561-33a18e22-d06f-4286-81e5-114ebcbf7692.png">
+1. docker-compose up --buildを実行します。  
+![スクリーンショット 0003-09-09 午後9 58 31](https://user-images.githubusercontent.com/66200485/132690086-fafc51bd-1126-48ec-b5a1-b6f21d33c871.png)  
+![スクリーンショット 0003-09-09 午後9 56 58](https://user-images.githubusercontent.com/66200485/132689850-abffd748-cc5b-478f-9ac7-fe433f5a1a53.png)
 
 <br>
 
