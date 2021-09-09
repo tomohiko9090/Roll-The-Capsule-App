@@ -4,6 +4,7 @@ import (
 	"GachaAPI/app/models/character"
 	user "GachaAPI/app/models/user"
 	"GachaAPI/app/models/userCharacters"
+	"database/sql"
 	"math/rand"
 	"time"
 )
@@ -17,15 +18,19 @@ func GetCharacterLength() (int, error) {
 	return characterLength, nil
 }
 
-// DrowCharacter キャラクターの種類の数, トークン, ガチャ回数 -> 当たったキャラクターIDの配列
-func DrowCharacter(characterLength int, token string, numberOfTimes int) ([]int, error) {
+// DrowCharacter キャラクターの種類の数, トークン, ガチャ回数 -> 当たったキャラクターIDの配列, キャラクターテーブルのmap
+func DrowCharacter(characterLength int, token string, numberOfTimes int) ([]int, map[int]character.Character, error) {
 
-	var resultCharacterIDs []int
+	var (
+		resultCharacterIDs []int
+		characterRows      *sql.Rows
+	)
+	status := make(map[int]character.Character)
 
 	// ユーザー情報の取得
 	user, err := user.SelectUser(token)
 	if err != nil {
-		return resultCharacterIDs, err
+		return resultCharacterIDs, status, err
 	}
 
 	// ガチャで得られたキャラクターIDの配列
@@ -36,21 +41,68 @@ func DrowCharacter(characterLength int, token string, numberOfTimes int) ([]int,
 		// 当たったキャラクターIDをDBにインサート
 		err := userCharacters.InsertUserCharacter(user.ID, resultCharacterIDs[times])
 		if err != nil {
-			return resultCharacterIDs, err
+			return resultCharacterIDs, status, err
 		}
 
 	}
-	return resultCharacterIDs, err
+
+	// キャラクターテーブルをまるごと取得
+	characterRows, err = character.SelectCharacterTable()
+	if err != nil {
+		return resultCharacterIDs, status, err
+	}
+	defer characterRows.Close()
+
+	// キャラクターテーブルをmapにする(キャラクターidをキー, キャラクターの詳細情報をバリューに)
+	for characterRows.Next() {
+		var character character.Character
+		err = characterRows.Scan(
+			&character.CharacterID,
+			&character.CharacterName,
+			&character.Rarity,
+			&character.Attack,
+			&character.Defence,
+			&character.Recovery)
+		if err != nil {
+			return resultCharacterIDs, status, err
+		}
+		status[character.CharacterID] = character
+	}
+	return resultCharacterIDs, status, err
 }
 
-// GetCharacter キャラクターID -> characterテーブル構造体
-func GetCharacter(characteId int) (character.Character, error) {
-	character, err := character.SelectCharacter(characteId)
-	if err != nil {
-		return character, err
-	}
-	return character, nil
-}
+//// GetCharacter キャラクターID -> characterテーブル構造体
+//func GetCharacter(characteId int) (character.Character, error) {
+//	character, err := character.SelectCharacter(characteId)
+//	if err != nil {
+//		return character, err
+//	}
+//	return character, nil
+// DrowCharacter キャラクターの種類の数, トークン, ガチャ回数 -> characterテーブル構造体
+//func DrowCharacter(characterLength int, token string, numberOfTimes int) ([]int, error) {
+//
+//	var resultCharacterIDs []int
+//
+//	// ユーザー情報の取得
+//	user, err := user.SelectUser(token)
+//	if err != nil {
+//		return resultCharacterIDs, err
+//	}
+//
+//	// ガチャで得られたキャラクターIDの配列
+//	resultCharacterIDs = turnCharacterID(characterLength, numberOfTimes)
+//
+//	for times := 0; times < numberOfTimes; times++ {
+//
+//		// 当たったキャラクターIDをDBにインサート
+//		err := userCharacters.InsertUserCharacter(user.ID, resultCharacterIDs[times])
+//		if err != nil {
+//			return resultCharacterIDs, err
+//		}
+//
+//	}
+//	return resultCharacterIDs, err
+//}
 
 // turnCharacterID キャラクターの種類の数, ガチャ回数 ->　当たったキャラクターIDの配列
 func turnCharacterID(characterLength int, times int) []int {

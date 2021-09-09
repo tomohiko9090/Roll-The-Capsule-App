@@ -3,6 +3,7 @@ package character
 import (
 	"GachaAPI/app/models"
 	_ "bytes"
+	"database/sql"
 	_ "fmt"
 
 	_ "github.com/go-sql-driver/mysql"
@@ -28,4 +29,14 @@ func GetCharacterLength() (int, error) {
 		return characterLength, err
 	}
 	return characterLength, nil
+}
+
+// SelectCharacterTable なし -> キャラクターの詳細情報一覧(テーブル全体)
+func SelectCharacterTable() (*sql.Rows, error) {
+	var rows *sql.Rows
+	rows, err := models.DB.Query("SELECT * FROM Characters")
+	if err != nil {
+		return rows, err
+	}
+	return rows, nil
 }

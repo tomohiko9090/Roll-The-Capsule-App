@@ -49,8 +49,7 @@ func DrowCharacters(c echo.Context) error {
 	}
 
 	// ③④⑤
-	var resultCharacterIDs []int
-	resultCharacterIDs, err = controller.DrowCharacter(characterLength, token, gachaDrawRequest.Times)
+	resultCharacterIDs, status, err := controller.DrowCharacter(characterLength, token, gachaDrawRequest.Times)
 	if err != nil {
 		log.Error(err) // ターミナル上にエラーを表示する
 		return c.JSON(http.StatusNotAcceptable, "error：Do not exist the user")
@@ -58,15 +57,10 @@ func DrowCharacters(c echo.Context) error {
 
 	var GachaDrawLIst []GachaResult
 	for _, resultCharacterID := range resultCharacterIDs {
-		// キャラクター情報の取得
-		character, err := controller.GetCharacter(resultCharacterID)
-		if err != nil {
-			return c.JSON(http.StatusInternalServerError, "error:ServerError")
-		}
-		//マッピング
+		// マッピング
 		gachaResult := GachaResult{
-			CharacterID: character.CharacterID,
-			Name:        character.CharacterName,
+			CharacterID: status[resultCharacterID].CharacterID,
+			Name:        status[resultCharacterID].CharacterName,
 		}
 		GachaDrawLIst = append(GachaDrawLIst, gachaResult)
 	}

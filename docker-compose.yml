@@ -1,10 +1,10 @@
 version: "3" # composeファイルのバージョン
 services: 
     app: # コンテナ名
-        build: . # ビルドに使うDockerfileの場所
+        build: .    # ビルドに使うDockerfileの場所
         command: /bin/sh -c "go run main.go"
         tty: true # コンテナの永続化s
-        ports: # ホストOSのポートとコンテナのポートをつなげる 
+        ports: # ホストOSのポートとコンテナのポートをつなげる。 左がホスト側
             - "8080:8080"
         volumes:
             - ./app:/go/src/app # マウントディレクトリ
@@ -20,10 +20,9 @@ services:
           MYSQL_ROOT_PASSWORD: xxxx
           MYSQL_DATABASE: capsule
           TZ: 'Asia/Tokyo'
-        command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
-        ports: 
+        ports:
           - "3307:3306"
-        container_name: mysql-container
+        container_name: "mysql-container"
 
 
 
