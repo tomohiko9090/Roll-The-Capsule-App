@@ -1,5 +1,6 @@
-# Turtle Gacha API （CA-Tech-Dojo）  
-<img width="545" alt="スクリーンショット 0003-09-09 午後6 04 29" src="https://user-images.githubusercontent.com/66200485/132656878-c815ce65-2bd9-4d64-a6c6-2f13f22da37a.png">  
+# Turtle Gacha API （CA-Tech-Dojo）    
+![スクリーンショット 0003-09-12 午前0 02 04](https://user-images.githubusercontent.com/66200485/132952176-994655fb-b7db-4f98-b716-ffeb210d4fff.png)
+
 「Turtle Gacha API」は、日本に生息するカメをモチーフとしたガチャAPIです。
  
 # DEMO
