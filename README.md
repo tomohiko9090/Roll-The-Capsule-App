@@ -89,7 +89,7 @@ tokenを生成したり、確率に応じてキャラを引いたりするなど
  
 **言語**：Golang 1.16.3  
 **フレームワーク**：echo v3.3.10  
-**開発環境**：MacOS  
+**開発環境**：Docker  
 **DB**：MySQL  
 **ライブラリ**：  
 "github.com/go-sql-driver/mysql"  
