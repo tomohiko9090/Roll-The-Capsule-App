@@ -7,7 +7,7 @@
 例)ガチャ実行APIの場合  
 <br>
 
-1. docker-compose up --buildを実行し、サーバーを起動させます。
+1. docker-compose up --buildを実行し、サーバーを起動させます。  
 ![スクリーンショット 0003-09-09 午後9 58 31](https://user-images.githubusercontent.com/66200485/132690086-fafc51bd-1126-48ec-b5a1-b6f21d33c871.png)  
 ![スクリーンショット 0003-09-09 午後9 56 58](https://user-images.githubusercontent.com/66200485/132689850-abffd748-cc5b-478f-9ac7-fe433f5a1a53.png)
 
