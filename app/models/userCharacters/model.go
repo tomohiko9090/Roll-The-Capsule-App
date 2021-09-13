@@ -2,12 +2,14 @@ package userCharacters
 
 import (
 	"GachaAPI/app/models"
+	"fmt"
 )
 
 // SelectUserCharacterList ユーザーID -> UserCharacterテーブル構造体の配列
 func SelectUserCharacterList(userId int) ([]UserCharacter, error) {
 	var userCharacterList []UserCharacter
 	rows, err := models.DB.Query("SELECT * FROM UserCharacters WHERE user_id = ?", userId)
+	fmt.Println(userId)
 	if err != nil {
 		return userCharacterList, err
 	}

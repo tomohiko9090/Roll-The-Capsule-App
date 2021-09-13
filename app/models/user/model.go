@@ -22,11 +22,11 @@ func SelectUser(token string) (User, error) {
 // InsertUser ユーザーネーム, トークン -> なし
 func InsertUser(name string, token string) error {
 	// nameとtokenをインサート
-	ins, err := models.DB.Prepare("INSERT INTO User(id, name,token) VALUES(?,?,?)")
+	ins, err := models.DB.Prepare("INSERT INTO User(name,token) VALUES(?,?)")
 	if err != nil {
 		return err
 	}
-	ins.Exec(1, name, token)
+	ins.Exec(name, token)
 	return nil
 }
 

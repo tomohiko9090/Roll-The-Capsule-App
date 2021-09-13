@@ -71,39 +71,6 @@ func DrowCharacter(characterLength int, token string, numberOfTimes int) ([]int,
 	return resultCharacterIDs, status, err
 }
 
-//// GetCharacter キャラクターID -> characterテーブル構造体
-//func GetCharacter(characteId int) (character.Character, error) {
-//	character, err := character.SelectCharacter(characteId)
-//	if err != nil {
-//		return character, err
-//	}
-//	return character, nil
-// DrowCharacter キャラクターの種類の数, トークン, ガチャ回数 -> characterテーブル構造体
-//func DrowCharacter(characterLength int, token string, numberOfTimes int) ([]int, error) {
-//
-//	var resultCharacterIDs []int
-//
-//	// ユーザー情報の取得
-//	user, err := user.SelectUser(token)
-//	if err != nil {
-//		return resultCharacterIDs, err
-//	}
-//
-//	// ガチャで得られたキャラクターIDの配列
-//	resultCharacterIDs = turnCharacterID(characterLength, numberOfTimes)
-//
-//	for times := 0; times < numberOfTimes; times++ {
-//
-//		// 当たったキャラクターIDをDBにインサート
-//		err := userCharacters.InsertUserCharacter(user.ID, resultCharacterIDs[times])
-//		if err != nil {
-//			return resultCharacterIDs, err
-//		}
-//
-//	}
-//	return resultCharacterIDs, err
-//}
-
 // turnCharacterID キャラクターの種類の数, ガチャ回数 ->　当たったキャラクターIDの配列
 func turnCharacterID(characterLength int, times int) []int {
 	rangePlus := 0
